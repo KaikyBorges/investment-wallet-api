@@ -18,7 +18,7 @@ from app.db_models import UsuarioDB
 #inicia as rotas para o projeto
 router = APIRouter()
 
-#rota para cadastrar e verificar os usuarios ja existentes dentro do banco de dados
+#rota para cadastrar e verificar os usuarios já existentes dentro do banco de dados
 @router.post("/usuarios")
 async def cadastrar_usuarios(usuario: UsuarioCadastro, db: Session = Depends(get_db)):
     usuario_existente = db.query(UsuarioDB).filter(UsuarioDB.username == usuario.username).first()

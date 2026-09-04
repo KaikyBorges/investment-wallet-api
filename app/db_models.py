@@ -11,21 +11,20 @@ class UsuarioDB(Base):
     senha_hash = Column(String)
 
 
-class AtivoDB(Base):
-    __tablename__ = "ativos"
+class TransacaoDB(Base):
+    __tablename__ = "transacoes"
 
     id = Column(Integer, primary_key=True, index=True)
     ticker = Column(String, index=True)
     quantidade = Column(Integer)
+    tipo = Column(String, index=True)
+    preco = Column(Float)
+    data = Column(DateTime, default=datetime)
     usuario_id = Column(Integer, ForeignKey("usuarios.id"))
 
-class TransacaoDB(Base):
-    __tablename__="transacoes"
+class PrecoAtualDB(Base):
+    __tablename__ = "precos_atuais"
 
-    id = Column(Integer,primary_key=True,index=True)
-    ticker =Column(String, index=True)
-    quantidade = Column(Integer)
-    tipo= Column(String, index=True)
-    preco = Column(Float)
-    data = Column(DateTime, default=datetime.utcnow)
-    usuario_id =Column(Integer,ForeignKey("usuarios.id"))
+    ticker = Column(String, primary_key=True)
+    preco = Column(Float, nullable=False)
+    atualizado_em = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
